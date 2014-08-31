@@ -1,27 +1,24 @@
 html .hidden{
- 
  width: auto;
  height: 0px;
  margin:0px;
-padding:0% ;
-
+ padding:0% ;
  min-width: 100%;
-background: -moz-linear-gradient(267deg, #666666 42%, #746762 65%);
-background: -webkit-linear-gradient(267deg, #666666 42%, #746762 65%);
-background: -o-linear-gradient(267deg, #666666 42%, #746762 65%);
-background: -ms-linear-gradient(267deg, #666666 42%, #746762 65%);
-background: linear-gradient(357deg, #666666 25%, #746762 70%);
+ background: -moz-linear-gradient(267deg, #666666 42%, #746762 65%);
+ background: -webkit-linear-gradient(267deg, #666666 42%, #746762 65%);
+ background: -o-linear-gradient(267deg, #666666 42%, #746762 65%);
+ background: -ms-linear-gradient(267deg, #666666 42%, #746762 65%);
+ background: linear-gradient(357deg, #666666 25%, #746762 70%);
 }
 #kont {
-height:px;
-width:auto;
-padding:10px 7px;
-
-background:#746762;
+ height:px;
+ width:auto;
+ padding:10px 7px;
+ background:#746762;
 }
-a { cursor: pointer;color: DarkGray}
-		a:hover { text-decoration: underline; color: SandyBrown; }
-		a:active { text-decoration: underline; color: black; }
+a {cursor: pointer;color: DarkGray};
+a:hover {text-decoration: underline; color: SandyBrown};
+a:active {text-decoration: underline; color: black};
 #tacts-table { border-collapse: collapse; }
 		#tacts-table {  width: 552px; background: #FFF9E5; font-weight: bold; text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 		text-align: left; border: 1px solid #B9BABE;-webkit-box-shadow: 2px 2px 5px rgba(50, 50, 50, 0.75);
@@ -58,30 +55,33 @@ background: linear-gradient(0deg, rgb(168, 143, 122) 40%, rgb(242, 173, 94) 100%
 -moz-box-shadow:    0px 2px 3px rgba(254, 145, 78, 1);
 box-shadow:         0px 2px 3px rgba(254, 145, 78, 1);
 }	
-      body {background:#666666;font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", sans-serif;}
-      .seti , .seta {
-       width:60px;
-       height:60px;
-       border:#000 1px solid;
-       border-radius:100px;
-       background:#fee;
-       color: rgba(196, 255, 121, 0.55);
-       text-shadow: 2px 2px #000913;
-       -moz-transform:scaleY(0.4);
-       -webkit-transform:scaleY(0.4);
-       margin-top:-60px;
-       cursor: move;
-       -webkit-box-shadow: -5px 7px 15px rgba(103, 59, 59, 0.76);
-       -moz-box-shadow:    -5px 7px 15px rgba(103, 59, 59, 0.76);
-       box-shadow:         -5px 7px 15px rgba(103, 59, 59, 0.76);}
-      .shadow {
-      -webkit-box-shadow: 0px 1px 10px rgba(50, 50, 50, 0.45);
--moz-box-shadow:    0px 1px 10px rgba(50, 50, 50, 0.45);
-box-shadow:         0px 5px 28px rgba(241, 243, 186, 0.45);}
-      .range {border:0; border-radius: 18px; background-color:#FFFCEA; color:#f6931f; font-weight:bold; text-align: center}
-      label {font: 11px/16px "Lucida Grande", "Lucida Sans Unicode", sans-serif;color: rgba(196, 255, 121, 0.55);}
-      .inp { background-color:#FFFCEA; cursor: pointer; font: 12px/18px symbol,'Standard Symbols L';border-radius: 18px; border-color: #8E846B;}
-  #selectable .ui-selecting ,#Selectable .ui-selecting{ background: #FECA40; }
-  #selectable .ui-selected ,#Selectable .ui-selected{ background: #F39814; color: white; }
-  #selectable ,#Selectable{ list-style-type: none; margin: 2px; padding: 0; width: 90px; }
-  #selectable li ,#Selectable li{ padding: 1px; float: left; width: 6px; height: 6px; font-size: 9px; }
+body {background:#666666;font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", sans-serif;}
+.seti , .seta {
+ width:60px;
+ height:60px;
+ border:#000 1px solid;
+ border-radius:100px;
+ background:#fee;
+ color: rgba(196, 255, 121, 0.55);
+ text-shadow: 2px 2px #000913;
+ -moz-transform:scaleY(0.4);
+ -webkit-transform:scaleY(0.4);
+ margin-top:-60px;
+ cursor: move;
+ -webkit-box-shadow: -5px 7px 15px rgba(103, 59, 59, 0.76);
+ -moz-box-shadow:    -5px 7px 15px rgba(103, 59, 59, 0.76);
+ box-shadow:         -5px 7px 15px rgba(103, 59, 59, 0.76);
+}
+.shadow {
+ -webkit-box-shadow: 0px 1px 10px rgba(50, 50, 50, 0.45);
+ -moz-box-shadow:    0px 1px 10px rgba(50, 50, 50, 0.45);
+ box-shadow:         0px 5px 28px rgba(241, 243, 186, 0.45);
+}
+.range {border:0; border-radius: 18px; background-color:#FFFCEA; color:#f6931f; font-weight:bold; text-align: center}
+label {font: 11px/16px "Lucida Grande", "Lucida Sans Unicode", sans-serif;color: rgba(196, 255, 121, 0.55);}
+.inp { background-color:#FFFCEA; cursor: pointer; font: 12px/18px symbol,'Standard Symbols L';border-radius: 18px; border-color: #8E846B;}
+#selectable .ui-selecting ,#Selectable .ui-selecting{ background: #FECA40; }
+#selectable .ui-selected ,#Selectable .ui-selected{ background: #F39814; color: white; }
+#selectable ,#Selectable{ list-style-type: none; margin: 2px; padding: 0; width: 90px; }
+#selectable li ,#Selectable li{ padding: 1px; float: left; width: 6px; height: 6px; font-size: 9px; }
+#selectable li ,#Selectable li{ padding: 1px; float: left; width: 6px; height: 6px; font-size: 9px; }
