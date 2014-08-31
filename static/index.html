@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>Paradiddles system</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="reply-to" content="lawegard@gmail.com">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="parsyst.css">
+    <link rel="shortcut icon" href="images/Shot1.ico">
+    <link rel="stylesheet" href="jquery-ui-1.10.3.custom.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+<div id="kont">
+<img src="images/Paradiddles_system.png">
+<p>
+<label>MIDI Out:</label> <select id=selectmidi style="border-radius: 18px; border-color: #8E846B; font-weight: bold; color: #381F00; background-color:#FFF9E5; cursor: pointer; "></select>
+<label for="SpinneR">Pitch:</label>&nbsp<input id="SpinneR" size="1" title = "Pitch Wheel (32 points = 1 semitone)" style="cursor: pointer; "/>  
+<label for="spinner">Tempo:</label>
+  <input id="spinner" size="1" style="cursor: pointer; "/>
+<button id=play style="cursor: url(images/Drumsticks.cur),auto"></button><label> Metronome </label> <input type="checkbox" id=Metronome style="cursor: pointer; "/>
+<label> Linear </label> <input type="checkbox" id=Linear style="cursor: pointer; "/>
+<label> Swing </label> <input type="checkbox" id=swing style="cursor: pointer; "/>
+<button id=RAND title="random patterns" style="cursor: pointer; "></button>
+<button id=rand title="random notes" style="cursor: pointer; "></button> <button id=random style="cursor: pointer; "></button>
+<img id = "rec" src="images/rec.jpg" style="cursor: pointer; -webkit-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.54);
+-moz-box-shadow:    0px 3px 5px rgba(50, 50, 50, 0.54);
+box-shadow:         0px 3px 5px rgba(50, 50, 50, 0.54);-webkit-border-radius: 15px;
+-moz-border-radius: 15px;border-radius: 15px; vertical-align:middle;" title="Record MIDI-file (requires virtual MIDI-driver)" >
+<a href="http://www.nerds.de/en/download.html" title="virtual MIDI-driver" style="cursor: pointer;">LoopBe</a>
+<img id = "ps" src="images/Shot1.jpg" style="cursor: pointer; float: right; padding-top: 6px;
+-webkit-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.54);
+-moz-box-shadow:    0px 3px 5px rgba(50, 50, 50, 0.54);
+box-shadow:         0px 3px 5px rgba(50, 50, 50, 0.54);-webkit-border-radius: 15px;
+-moz-border-radius: 15px;border-radius: 10px; vertical-align:middle;" title="paradiddles-system3" >    
+  <div id="radio" style="margin-left: 95px">
+  <input type="radio" id="radio1" name="radio" checked="checked"><label for="radio1">Count</label>
+  <input type="radio" id="radio2" name="radio"><label for="radio2">Random</label>
+  <button id=sequence>Sequence</button>&nbsp 
+<input id="Tact" type="text" size="1" title="Measures" class = "inp" style="border-radius: 18px; font-weight: bold; text-align: center"> 
+  </div>
+  <form id="f1" name="f1">
+<div style='height: auto; width: 108px; float: right;'>  
+<div style='height: auto; width: 98px; float: right;'>
+<div  class = "shadow">
+<select size="4" id="R5" class = "inp">  
+<option style="background: #FFCC66" value="21">1,1,0,0,1,1,0,0</option>
+<option style="background: #66FFFF" value="22">1,1,0,1,0,1,0,0</option>
+</select></div>
+<div  class = "shadow">
+<select size="4" id="R6" class = "inp">
+<option style="background: #FFFF99" value="23">1,1,0,0,1,0,1,0</option>
+<option style="background: #66CCFF" value="24">1,1,0,1,1,0,1,0</option>
+<option style="background: #CCFF99" value="25">1,1,0,1,0,0,1,0</option>
+<option style="background: #66CCFF" value="26">1,1,0,1,0,1,1,0</option>
+</select></div>
+<div  class = "shadow"> 
+<select size="4" id="R7" class = "inp">
+<option value="27">1,1,0,1,1,0,1,1</option>
+<option value="28">1,1,0,1,0,0,1,1</option>
+<option value="29">1,1,0,0,1,0,1,1</option>
+</select></div>
+<div  class = "shadow">
+<select size="4" id="R8" class = "inp">
+<option value="30">1,1,0,1,1,0,0,1</option>
+<option value="31">1,1,0,0,1,0,0,1</option>
+<option value="32">1,1,0,1,0,1,0,1</option>
+<option value="33">1,1,0,0,1,1,0,1</option>
+</select></div>
+&nbsp&nbsp&nbsp<label> Invert </label>&nbsp<label> Solo </label><br>&nbsp&nbsp&nbsp<input type="checkbox" id=Invert style="cursor: pointer;" />
+&nbsp&nbsp&nbsp <input type="checkbox" id=Solo style="cursor: pointer;" /></div></div>
+<div style='height: auto; width: 108px; float: right;'>
+<div style='height: auto; width: 98px; float: right;'>
+<div  class = "shadow">
+  <select size="7" id="R1" class = "inp">
+<option style="background: tomato" value="0">1,0,1,0,1,0,1,0</option>
+<option style="background: #66FFFF" value="1">1,0,1,0,0,1,1,0</option>
+<option style="background: #66FFFF" value="2">1,0,0,1,1,0,1,0</option>
+<option style="background: #66CCFF" value="3">1,0,1,1,0,1,1,0</option>
+<option style="background: #FFCCFF" value="4">1,0,0,1,0,0,1,0</option>
+<option style="background: #CCFF99" value="5">1,0,0,1,0,1,1,0</option>
+<option style="background: #FFFF99" value="6">1,0,1,1,0,0,1,0</option>
+</select></div> 
+<div  class = "shadow">
+<select size="4" id="R2" class = "inp">
+<option style="background: #FFFF99" value="7">1,0,1,0,1,1,0,0</option>
+<option style="background: #FFCCFF" value="8">1,0,1,0,0,1,0,0</option>
+<option style="background: #CCFF99" value="9">1,0,1,1,0,1,0,0</option>
+<option style="background: #FFCCFF" value="10">1,0,0,1,0,1,0,0</option>
+</select></div>
+<div  class = "shadow"> 
+<select size="6" id="R3" class = "inp">
+<option style="background: #CCFF99" value="11">1,0,1,0,0,1,0,1</option>
+<option style="background: #66CCFF" value="12">1,0,1,0,1,1,0,1</option>
+<option style="background: #66CCFF" value="13">1,0,1,1,0,1,0,1</option>
+<option style="background: #FFFF99" value="14">1,0,0,1,0,1,0,1</option>
+<option style="background: #66FFFF" value="15">1,0,1,0,1,0,0,1</option>
+<option style="background: #FFCC66" value="16">1,0,0,1,1,0,0,1</option>
+</select></div>
+<div  class = "shadow">
+<select  size="4" id="R4" class = "inp">
+<option value="17">1,0,0,1,1,0,1,1</option>
+<option value="18">1,0,0,1,0,0,1,1</option>
+<option value="19">1,0,1,0,1,0,1,1</option>
+<option value="20">1,0,1,1,0,0,1,1</option>
+</select></div>
+<ol id="Selectable">
+  <li class="ui-state-default">1</li>
+  <li class="ui-state-default">2</li>
+  <li class="ui-state-default">3</li>
+  <li class="ui-state-default">4</li>
+  <li class="ui-state-default">5</li>
+  <li class="ui-state-default">6</li>
+  <li class="ui-state-default">7</li>
+  <li class="ui-state-default">8</li>
+</ol>
+</div></div> </form>
+  <form id="f0" name="f0">
+<div style='height: auto; width: 108px; float: right;'>  
+<div style='height: auto; width: 98px; float: right;'>
+<div  class = "shadow">
+<select size="7" id="L1" class = "inp">
+<option style="background: tomato" value="0">0,1,0,1,0,1,0,1</option>
+<option style="background: #FFFF99" value="1">0,1,0,1,1,0,0,1</option>
+<option style="background: #FFFF99" value="2">0,1,1,0,0,1,0,1</option>
+<option style="background: #FFCCFF" value="3">0,1,0,0,1,0,0,1</option>
+<option style="background: #66CCFF" value="4">0,1,1,0,1,1,0,1</option>
+<option style="background: #CCFF99" value="5">0,1,1,0,1,0,0,1</option>
+<option style="background: #66FFFF" value="6">0,1,0,0,1,1,0,1</option>
+</select></div>
+<div  class = "shadow"> 
+<select size="4" id="L2" class = "inp">
+<option style="background: #66FFFF" value="7">0,1,0,1,0,0,1,1</option>
+<option style="background: #66CCFF" value="8">0,1,0,1,1,0,1,1</option>
+<option style="background: #CCFF99" value="9">0,1,0,0,1,0,1,1</option>
+<option style="background: #66CCFF" value="10">0,1,1,0,1,0,1,1</option>
+</select></div>
+<div  class = "shadow"> 
+<select size="6" id="L3" class = "inp">
+<option style="background: #CCFF99" value="11">0,1,0,1,1,0,1,0</option>
+<option style="background: #FFCCFF" value="12">0,1,0,1,0,0,1,0</option>
+<option style="background: #FFCCFF" value="13">0,1,0,0,1,0,1,0</option>
+<option style="background: #66FFFF" value="14">0,1,1,0,1,0,1,0</option>
+<option style="background: #FFFF99" value="15">0,1,0,1,0,1,1,0</option>
+<option style="background: #FFCC66" value="16">0,1,1,0,0,1,1,0</option>
+</select></div>
+<div  class = "shadow">
+<select size="4" id="L4" class = "inp">
+<option value="17">0,1,1,0,0,1,0,0</option>
+<option value="18">0,1,1,0,1,1,0,0</option>
+<option value="19">0,1,0,1,0,1,0,0</option>
+<option value="20">0,1,0,0,1,1,0,0</option>
+</select></div>
+<ol id="selectable">
+  <li class="ui-state-default">1</li>
+  <li class="ui-state-default">2</li>
+  <li class="ui-state-default">3</li>
+  <li class="ui-state-default">4</li>
+  <li class="ui-state-default">5</li>
+  <li class="ui-state-default">6</li>
+  <li class="ui-state-default">7</li>
+  <li class="ui-state-default">8</li>
+</ol>
+ </div></div>
+<div style='height: auto; width: 108px; float: right;'>
+<div style='height: auto; width: 98px; float: right;'>
+<div  class = "shadow">
+<select size="4" id="L5" class = "inp">
+<option style="background: #FFCC66" value="21">0,0,1,1,0,0,1,1</option>
+<option style="background: #FFFF99" value="22">0,0,1,0,1,0,1,1</option>
+</select></div>
+<div  class = "shadow">
+<select size="4" id="L6" class = "inp">
+<option style="background: #66FFFF" value="23">0,0,1,1,0,1,0,1</option>
+<option style="background: #FFCCFF" value="24">0,0,1,0,0,1,0,1</option>
+<option style="background: #CCFF99" value="25">0,0,1,0,1,1,0,1</option>
+<option style="background: #FFCCFF" value="26">0,0,1,0,1,0,0,1</option>              
+</select></div>
+<div  class = "shadow"> 
+<select size="4" id="L7" class = "inp">
+<option value="27">0,0,1,0,0,1,0,0</option>
+<option value="28">0,0,1,0,1,1,0,0</option>
+<option value="29">0,0,1,1,0,1,0,0</option>
+</select></div>
+<div  class = "shadow">
+<select size="4" id="L8" class = "inp">
+<option value="30">0,0,1,0,0,1,1,0</option>
+<option value="31">0,0,1,1,0,1,1,0</option>
+<option value="32">0,0,1,0,1,0,1,0</option>
+<option value="33">0,0,1,1,0,0,1,0</option>
+</select></div> 
+&nbsp&nbsp&nbsp<label> Invert </label>&nbsp<label> Solo </label><br>&nbsp&nbsp&nbsp<input type="checkbox" id=invert style="cursor: pointer;" />
+&nbsp&nbsp&nbsp <input type="checkbox" id=solo style="cursor: pointer;" />
+</div></div>
+   </form>&nbsp
+   <div id="drumset" style='height: 302px; width: 309px; border: 1px ;float: right; margin-right: 15px'>
+  <div id="accordion">
+   <h3>Paradiddles system</h3>
+ <div>
+ <dt>Drum-machine,programmable metronome,sequencer.</dt>
+    <p> Unlike the analogs working in Java and (or) in Flash,uses
+     <a href="http://jazz-soft.net">Jazz-Plugin</a>, providing support of MIDI in the browser, and generates MIDI messages on the 10th channel 
+     by means of Javascript-engine.
+      For comfortable work with Paradiddles system it is recommended to install Yamaha S-YXG50 (for Windows XP),
+      <a href="http://coolsoft.altervista.org/en/virtualmidisynth">VirtualMIDISynth</a>
+      (for all versions of Windows) The virtual midi-cable is necessary for record of 
+      MIDI files or connection to VST-host, DAW (<a href="http://www.nerds.de/en/download.html">LoopBe</a>, MIDI Yoke, VMC). The listed drivers will appear in MIDI Out:</p>
+   <dt> Драм-машина,программируемый метроном,секвенсор.</dt>
+   <p>В отличие от аналогов,работающих на Java и(или) на Flash,
+   использует <a href="http://jazz-soft.net">Jazz-Plugin</a>,обеспечивающий поддержку MIDI в браузере,
+ и генерирует MIDI на 10-м канале при помощи Javascript-движка.
+Для комфортной работы с Paradiddles system рекомендуется установить Yamaha S-YXG50 (для Windows XP) ,
+<a href="http://coolsoft.altervista.org/en/virtualmidisynth">VirtualMIDISynth</a> (для всех версий Windows)
+Для записи MIDI-файлов или подключения к VST-host, DAW необходим виртуальный миди-кабель 
+(<a href="http://www.nerds.de/en/download.html">LoopBe</a>,MIDI Yoke,VMC).
+Перечисленные драйверы появятся в MIDI Out:</p>
+ </div>
+  <h3>Manifest</h3>
+ <div>
+    <p>
+    Paradiddles system is a classification of a fingerings, orders their variety and simplifies their studying.
+    Unlike the "live" drummers ground under a favourite fingering, uses all arsenal.
+    As iceberg and its top.  In total in a 8-submultiple step measure are possible 
+7 "rings" (are designated by 7 flowers. together with addresses - 46 patterns, 23 with right and 23 from the left hand (foot).
+ They are called "rings" since at cyclic performance begin with the same hand or a foot), and  
+11 "bracelets" (continuing "jeweler" analogy), 22 patterns, at cyclic performance beginning 
+with an opposite hand, differently inevitably there is a series of the 3 or 4 strokes of the same hand (foot) that in the theory 
+contradicts definition of a paradiddle as alternations of a single and the double strokes, and in practice does very 
+difficult playing the 16th at rates above "hamp".</p>
+   <p> 
+    Paradiddles system - это классификация аппликатур, приводит в порядок их разнообразие и упрощает их изучение.
+    В отличие от "живых" барабанщиков,заточенных под любимые аппликатуры,использует весь арсенал.
+    Как айсберг и его вершина.Всего в 8-дольном такте возможны 
+7 "колец" (обозначены 7-ю цветами. вместе с обращениями - 46 паттернов, 23 с правой и 23 с левой руки (ноги).
+ "Кольцами" они названы ,т.к. при циклическом исполнении начинаются c той же руки или ноги) ,а еще 
+11 "браслетов" (продолжая "ювелирную" аналогию), 22 паттерна ,при циклическом исполнении начинающихся 
+с противоположной руки ,иначе неизбежно возникает серия из 3-х или 4-х ударов той же руки(ноги),что в теории 
+противоречит определению парадидла,как чередования одиночных и дубль-ударов ,а на практике делает весьма 
+непростым исполнение 16-тыми в темпах выше "хампа". 
+   </p>
+ </div>
+  <h5>Drumset</h5>
+ <div>
+ <dt>Allows you to visualize the patterns in a virtual set</dt>
+<p>How to add an instrument to the set? Double-click on the upper left arm slider, you can add up to 8 different instruments,
+ bottom - two different instruments,that can be positioned as desired by clicking and dragging.
+  After the page loads Randomize button is not active, only after the formation of set you can press it. To remove the instrument 
+  from the set, you should double click on the ellipse of the instrument.</p>
+ 
+  <dt>Позволяет визуализировать раскладку паттернов на виртуальном сете </dt>
+    <p>Как добавить инструмент в сет?
+     Двойным кликом на левой рукоятке верхнего слайдера можно добавить до 8 разных инструментов,
+     нижнего - один или два разных инструментов,например Pedal Hi-Hat и Bass Drum.<br>Появившиеся инструменты можно расположить желаемым
+     образом,перетаскивая.
+    При загрузке 
+страницы кнопка Randomize не активна , лишь после формирования сета можно ее нажать.
+Удалить инструмент из сета можно двойным кликом на эллипсе удаляемого инструмента.</p>
+ </div>
+    <h3>Sequencer</h3>
+ <div>
+    <p>Sequencer with storage in the Local Storage, playback by the order (Count) and in random mode (Random)
+     Press the Save button to record, Sequence button to play.
+    </p>
+    <h3> Settings </h3>
+  <dl>
+   <dt>ID</dt>
+   <dd>The unique identifier of the measure in the sequence can be changed only in console.To do this, open the page in the Chrome browser and click F12.
+Resourses / Local Storage / http :/ / paradiddles-system.appspot.com /</dd>
+  </dl> 
+  <dl>
+   <dt>note_1</dt>
+   <dd>Instrument selected for the left-side pattern ,by default Open Hi-Hat.</dd>
+   <dt>note_2</dt>
+   <dd> MIDI-notes number which forms the range, and is an upper bound of this range.
+    If the left Solo checkbox is checked ,the current pattern will be applying to the instruments within the range.
+   </dd>
+  </dl>
+  <dl>
+   <dt>Note_1</dt>
+   <dd>Instrument selected for the right-side pattern ,by default Closed Hi-Hat</dd>
+   <dt>Note_2</dt>
+   <dd>MIDI-notes number which forms the range, and is an upper bound of this range.
+   If the right Solo checkbox is checked ,the current pattern will be applying to the instruments within the range.
+   </dd>
+  </dl>
+  <dl>
+   <dt>index</dt>
+   <dd>Left side pattern's number (0-based)</dd>
+   <dt>Index</dt>
+   <dd>Right side pattern's number (0-based)</dd>
+  </dl>
+  <dl>
+   <dt>Measures</dt>
+   <dd>How many times should sound the measure.If -1, playback cyclical</dd>
+  </dl> 
+  <dl>
+   <dt>Tempo</dt>
+   <dd>Number of beats per minute. By default 120 b.p.m</dd>
+  </dl> 
+  <dt>Actions</dt>
+   <dd>Edit allows to choose or edit,
+   Remove - delete the measure </dd>
+  </dl> 
+ 
+    <p>Секвенсор с хранением в Local Storage,воспроизведение по порядку (Count) и в случайном режиме (Random)
+    Нажатием кнопки Save проиводится запись,Sequence - воспроизведение.
+    </p>
+    <h3> Настройки </h3>
+  <dl>
+   <dt>ID</dt>
+   <dd>уникальный идентификатор такта в секвенции,может быть изменен только в консоли.Для этого откроем страницу в браузере Chrome и нажмем F12. 
+Resourses/Local Storage/http://paradiddles-system.appspot.com/</dd>
+  </dl> 
+  <dl>
+   <dt>note_1</dt>
+   <dd>инструмент,выбранный для озвучки паттерна из левой половины.По умолчанию Open Hi-Hat</dd>
+   <dt>note_2</dt>
+   <dd>номер MIDI-ноты,образующей интервал (range), и являющейся его верхней границей
+   При отмеченном левом чекбоксе Solo текущий паттерн раскладывается на инструменты ,входящие в интервал range
+   </dd>
+  </dl>
+  <dl>
+   <dt>Note_1</dt>
+   <dd>инструмент,выбранный для озвучки паттерна из правой половины.По умолчанию Closed Hi-Hat</dd>
+   <dt>Note_2</dt>
+   <dd>номер MIDI-ноты,образующей интервал (range), и являющейся его верхней границей
+   При отмеченном правом чекбоксе Solo текущий паттерн раскладывается на инструменты ,входящие в интервал range
+   </dd>
+  </dl>
+  <dl>
+   <dt>index</dt>
+   <dd>номер (0-based) паттерна из левой половины</dd>
+   <dt>Index</dt>
+   <dd>номер (0-based) паттерна из правой половины</dd>
+  </dl>
+  <dl>
+   <dt>Measures</dt>
+   <dd>сколько раз должен звучать такт.Если -1 ,то воспроизведение циклическое</dd>
+  </dl> 
+  <dl>
+   <dt>Tempo</dt>
+   <dd>количество ударов в минуту.По умолчанию 120 b.p.m</dd>
+  </dl> 
+  <dt>Actions</dt>
+   <dd>Edit позволяет выбрать или редактировать,
+   Remove - удалить такт </dd>
+  </dl> 
+  </div>
+ </div>
+ </div>
+   
+<form id="tacts-form"> 
+<img id = "header" style="display:block; height: 50px; width: 350px; margin-left: 52px" class = "shadow">  
+<p>
+	<label for="amount" style="margin-left: 55px"> range:</label>&nbsp 
+	<input type="text" id="amount" size="3px"  class="range">
+   <label for="tabl"> note:</label>&nbsp 
+	<input type="text" value="Open Hi-Hat" id="tabl" style="border:0; color:#f6931f;background:#746762; font-weight:bold;">
+&nbsp&nbsp&nbsp<input title="pattern's index" type="text"  size="2px" class = "inp" style="border-radius: 18px; font:inherit; text-align: center;font-weight: bold" id="pattern"/>
+</p> 		
+<div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+<div class="ui-slider-range ui-widget-header ui-corner-all" ></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" title='Left'></a>
+</div><br>			
+
+<img id = "Header" style="display:block; height: 50px; width: 350px; margin-left: 52px" class = "shadow">
+<p>
+	<label for="Amount" style="margin-left: 55px"> Range:</label>
+	<input type="text" id="Amount" size="3px"  class="range">
+   <label for="Tabl"> Note:</label>&nbsp  
+	<input type="text" value="Closed Hi Hat" id="Tabl" style="border:0; color:#f6931f;background:#746762; font-weight:bold;">
+&nbsp&nbsp&nbsp<input title="Pattern's Index" type="text"  size="2px" class = "inp" style="border-radius: 18px; font:inherit; text-align: center;font-weight: bold" id="Pattern"/>
+</p>
+<div id="Slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+<div class="ui-slider-range ui-widget-header ui-corner-all" ></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" title='Right'></a>
+</div> 
+ 
+	<div>
+<input id="tap" title="tap" type="text" size="1" 
+style="border-radius: 18px;cursor: url(images/Drumsticks.cur),auto;background:#ceefe3;font:inherit;font-size: 11pt; text-align: center;"> 
+	<input type="hidden" style="font:inherit; text-align: center" name="id_entry" size="1" value="0"/>
+	<div class="item button button-default"><input  title="store settings" type="submit" id="tacts-op-save" value="Save" /></div>
+<input type="text" value="" style="border-radius: 18px; font:inherit; text-align: center" size="1" class = "inp" title="Measure" id="tact">		
+	</div>
+<div>
+    <table id="tacts-table">
+		<tr id="tacts-head">
+			<th>ID</th>
+			<th title="left-side pattern's current instrument">note_1</th>
+			<th title="an upper bound of the range">note_2</th>
+			<th title="right-side pattern's current instrument">Note_1</th>
+			<th title="an upper bound of the Range">Note_2</th>
+			<th title="pattern's index">index</th>
+			<th title="Pattern's Index">Index</th>
+			<th title="Measures">M-s</th>
+			<th>Tempo</th>
+			<th>Actions</th>
+		</tr>
+	</table></div>
+</form>
+
+       <script src="parsyst.js" type="text/javascript"></script>
+        </body>
+</html>
