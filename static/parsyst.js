@@ -1,6 +1,6 @@
 App = {}
 App.socket = io.connect()
-   
+
 $(function(){
   $("#spinner").spinner().spinner("value", 120);
   $("#spinner").spinner({min: 40, max: 200});
@@ -88,8 +88,8 @@ $(function(){
   $("#accordion").accordion({
 	  heightStyle: "fill" //,collapsible: true
   });
-
-  App.socket.emit('ready')
+  
+  App.socket.emit('ready', navigator.platform);
 });
 			
 mas = {

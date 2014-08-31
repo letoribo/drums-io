@@ -6,17 +6,16 @@ var ap = Express();
 ap.set('title', 'Paradiddles-System');
 console.log(ap.get('title'))
 
-if(process.platform=="win32") var jazz = require('jazz-midi/bin/win32/jazz');
-else if(process.platform=="darwin"&&process.arch=="x64") var jazz = require('jazz-midi/bin/macos64/jazz');
-else if(process.platform=="darwin"&&process.arch=="ia32") var jazz = require('jazz-midi/bin/macos32/jazz');
-else if(process.platform=="linux"&&process.arch=="x64") var jazz = require('jazz-midi/bin/linux64/jazz');
-else if(process.platform=="linux"&&process.arch=="ia32") var jazz = require('jazz-midi/bin/linux32/jazz');
-
-console.log("isJazz:", jazz.isJazz);
-console.log(jazz.Time());
-
-Jazz = new jazz.MIDI();
-app.io.route('ready', function(req){
+app.io.route('ready', function(req){console.log(req.data);
+  if(req.data=="Win32") var jazz = require('jazz-midi/bin/win32/jazz');
+  /*else if(req.data=="darwin"&&process.arch=="x64") var jazz = require('jazz-midi/bin/macos64/jazz');
+  else if(req.data=="darwin"&&process.arch=="ia32") var jazz = require('jazz-midi/bin/macos32/jazz');
+  else if(req.data=="linux"&&process.arch=="x64") var jazz = require('jazz-midi/bin/linux64/jazz');
+  else if(req.data=="linux"&&process.arch=="ia32") var jazz = require('jazz-midi/bin/linux32/jazz');*/
+  
+  console.log("isJazz:", jazz.isJazz);
+  console.log(jazz.Time());
+  Jazz = new jazz.MIDI();
   app.io.broadcast('list', jazz.MidiOutList());
 })
 
@@ -44,9 +43,9 @@ app.io.route('mididata', function(req){
   for(i in notes){
 	 console.log(notes[i]);
   }*/
-  var scientific = function(n){return teoria.note.fromMIDI(n).scientific();}
+  /*var scientific = function(n){return teoria.note.fromMIDI(n).scientific();}
   var l = req.data.l; if(l !== 0) console.log(scientific(l));
-  var r = req.data.r; if(r !== 0) console.log(scientific(r));
+  var r = req.data.r; if(r !== 0) console.log(scientific(r));*/
   Jazz.MidiOut(0x99, l, 111);
   Jazz.MidiOut(0x99, r, 111);
 })
