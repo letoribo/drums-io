@@ -43,9 +43,9 @@ app.io.route('mididata', function(req){
   for(i in notes){
 	 console.log(notes[i]);
   }*/
-  /*var scientific = function(n){return teoria.note.fromMIDI(n).scientific();}
+  var scientific = function(n){return teoria.note.fromMIDI(n).scientific();}
   var l = req.data.l; if(l !== 0) console.log(scientific(l));
-  var r = req.data.r; if(r !== 0) console.log(scientific(r));*/
+  var r = req.data.r; if(r !== 0) console.log(scientific(r));
   Jazz.MidiOut(0x99, l, 111);
   Jazz.MidiOut(0x99, r, 111);
 })
