@@ -55,7 +55,7 @@ background: linear-gradient(0deg, rgb(168, 143, 122) 40%, rgb(242, 173, 94) 100%
 -moz-box-shadow:    0px 2px 3px rgba(254, 145, 78, 1);
 box-shadow:         0px 2px 3px rgba(254, 145, 78, 1);
 }	
-body {background:#666666;font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", sans-serif;}
+body {zoom: 150%;background:#666666;font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", sans-serif;}
 .seti , .seta {
  width:60px;
  height:60px;
